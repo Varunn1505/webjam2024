@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <h1>To Do List</h1>
+</head>
+<body>
+    <style>
+        .complete {
+            text-decoration: line-through;
+        }
+    </style>
+    <script>
+        const element = document.createElement("li");
+
+        element.addEventListener("click", () => {
+            alert("hello")
+        })
+        
+
+        function saveNewItem(){
+            const item = document.getElementById("to-do").value;
+            if(item == ""){
+                alert("Must enter text");
+            } else { 
+                const list = document.getElementById("list");
+                console.log(list)
+                const element = document.createElement("li");
+                const todo = document.createTextNode(item);
+                element.appendChild(todo);
+                list.appendChild(element);
+            } 
+        }
+
+    </script>
+    <!-- Input Button -->
+    <input type="text" id="to-do">
+    <button onclick="saveNewItem()">Add To Do</button>
+
+
+    <!-- Unordered List  -->
+    <ul id="list">
+
+    </ul>
+</body>
+</html>

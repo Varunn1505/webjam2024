@@ -7,17 +7,18 @@
     <title>ZeroWaste</title>
 </head>
 <body>
-    <form>
-        <label>Grocery Item:</label>
-        <input type="text">
-        <br>
-        <br>
-        <label>Expiry Date:  </label>
-        <input type="date">
-        <br>
-        <br>
-        <input type="Submit">
-    </form>
+    <label>Grocery Item:</label>
+    <input type="text" id="grocery-item">
+    <br><br>
+    <label>Expiry Date:</label>
+    <input type="date" id="expiry-date">
+    <br>
+    <br>
+    <button onclick="addItemToList()">Submit</button>
+
+    <ul id="added-items">
+    
+    </ul>
     
 </body>
 </html>

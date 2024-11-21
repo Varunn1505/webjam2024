@@ -7,21 +7,31 @@
     <title>ZeroWaste</title>
 </head>
 <body>
-    <label>Grocery Item:</label>
-    <input type="text" id="grocery-item">
+    <h1>ZeroWaste Recipe Finder</h1>
+
+    <label for="grocery-item">Grocery Item:</label>
+    <input type="text" id="grocery-item" placeholder="Enter grocery item">
     <br><br>
-    <label>Expiry Date:</label>
+
+    <label for="expiry-date">Expiry Date:</label>
     <input type="date" id="expiry-date">
-    <br>
-    <br>
+    <br><br>
+
     <button onclick="addItemToList()">Add</button>
+    <br><br>
 
+    <h2>Added Ingredients</h2>
     <ul id="added-items">
-    
+        <!-- Ingredients will be dynamically added here -->
     </ul>
+    <br>
 
-    <button onclick="addItemToList()">Generate</button>
-    <p id=""></p>
-    
+    <button onclick="apiCall()">Generate Recipes</button>
+    <br><br>
+
+    <h2>Recipe Results</h2>
+    <div id="recipe-results">
+        <!-- Recipes will be dynamically added here -->
+    </div>
 </body>
 </html>

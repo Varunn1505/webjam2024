@@ -22,7 +22,9 @@ function addItemToList(){
         element.appendChild(node);
 
         const deleteButton = makedeleteButton(element, list)
+        const editButton = makeEditButton(itemElement, element)
         element.appendChild(deleteButton)
+        element.appendChild(editButton)
 
         list.appendChild(element);
     }
@@ -37,6 +39,47 @@ function makedeleteButton(listElement, list){
     });
 
     return deleteButton;
+}
+
+function makeEditButton(itemElement, listElement) {
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+
+    editButton.addEventListener("click", () => {
+        // Create inputs for editing
+        const editItemInput = document.createElement("input");
+        editItemInput.type = "text";
+        editItemInput.value = itemElement.itemName;
+
+        const editDateInput = document.createElement("input");
+        editDateInput.type = "date";
+        editDateInput.value = itemElement.expiryDate;
+
+        // Create Save button
+        const saveButton = document.createElement("button");
+        saveButton.textContent = "Save";
+
+        saveButton.addEventListener("click", () => {
+            // Update the item in itemsList
+            itemElement.itemName = editItemInput.value;
+            itemElement.expiryDate = editDateInput.value;
+
+            // Update the list item text
+            listElement.textContent = `${itemElement.itemName}, ${itemElement.expiryDate}`;
+
+            // Re-add the Edit and Delete buttons
+            listElement.appendChild(makeEditButton(itemElement, listElement));
+            listElement.appendChild(makeDeleteButton(listElement, listElement.parentNode));
+        });
+
+        // Clear current list element and add inputs and Save button
+        listElement.textContent = "";
+        listElement.appendChild(editItemInput);
+        listElement.appendChild(editDateInput);
+        listElement.appendChild(saveButton);
+    });
+
+    return editButton;
 }
 
 function apiCall(){

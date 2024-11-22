@@ -11,7 +11,10 @@ body{
     background-color: #acbd98;
     color: white;
     border: 2px solid #f7ebdb;
+    font-family: "Nunito Sans", sans-serif;
     font-size: 20px;
+    border-radius: 8px;
+
 }
 
 .button:hover{

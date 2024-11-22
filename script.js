@@ -137,7 +137,7 @@ function delay(ms) {
 
 // Fetch recipes using the Spoonacular API
 async function fetchRecipes(list1, list2) {
-    const API_KEY = "1999ba0f7a644ac4afb4dc0ac20d224c";
+    const API_KEY = "a0074fce1dd24d4287374f022706159e";
     const BASE_URL = "https://api.spoonacular.com/recipes/complexSearch";
 
     // Helper function to fetch recipes for a given list

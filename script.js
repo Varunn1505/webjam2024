@@ -147,21 +147,19 @@ function displayRecipes(list1Recipes, list2Recipes) {
         const card = document.createElement("div");
         card.className = "recipe-card";
         card.style.border = "1px solid #ccc";
-        card.style.padding = "15px";
+        card.style.padding = "30px";
         card.style.margin = "10px 0";
         card.style.borderRadius = "5px";
         card.style.backgroundColor = "#f9f9f9";
     
         // Extract instructions if available
-        const instructions = recipe.analyzedInstructions?.[0]?.steps.map(step => step.step).join(" ") || "No instructions available.";
         const instructionsUrl = recipe.sourceUrl || `https://spoonacular.com/recipes/${recipe.id}`;
     
         card.innerHTML = `
-            <img src="${recipe.image}" alt="${recipe.title}" style="width:100%; margin-bottom:10px;" />
+            <img src="${recipe.image}" alt="${recipe.title}" style="width:50%; margin-bottom:10px;" />
             <h3>${recipe.title}</h3>
             <p><strong>Cooking Time:</strong> ${recipe.readyInMinutes} mins</p>
             <p><strong>Calories:</strong> ${Math.round(recipe.nutrition.nutrients.find(n => n.name === "Calories").amount)} kcal</p>
-            <p><strong>Instructions:</strong> ${instructions}</p>
             <a href="${instructionsUrl}" target="_blank" style="color: blue; text-decoration: underline;">Full Instructions</a>
         `;
         return card;

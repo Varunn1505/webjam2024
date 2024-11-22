@@ -1,4 +1,43 @@
 itemsList = []
+intolerancesList = []
+
+function addIntolerance() {
+    const intolerance = document.getElementById("intolerance-item").value;
+    const list = document.getElementById("intolerances-list");
+
+    if (intolerance === "") {
+        alert("Must enter an intolerance");
+    } else {
+        intolerancesList.push(intolerance);
+
+        const element = document.createElement("li");
+        const node = document.createTextNode(intolerance);
+        element.appendChild(node);
+
+        const deleteButton = makeIntoleranceDeleteButton(element, list);
+        element.appendChild(deleteButton);
+
+        list.appendChild(element);
+
+        document.getElementById("intolerance-item").value = ""; // Clear input field
+    }
+}
+
+
+function makeIntoleranceDeleteButton(listElement, list){
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "X";
+
+    deleteButton.addEventListener("click", () => {
+        const index = Array.from(list.children).indexOf(listElement);
+        if(index !== -1) {
+            intolerancesList.splice(index,1);
+        }
+        list.removeChild(listElement)
+    });
+    return deleteButton
+
+}
 
 function addItemToList(){
     const item = document.getElementById("grocery-item").value;
@@ -105,6 +144,7 @@ async function fetchRecipes(list1, list2) {
     async function getRecipes(ingredients, number) {
         const params = new URLSearchParams({
             includeIngredients: ingredients.join(","),
+            intolerances: intolerancesList.join(","),
             apiKey: API_KEY,
             number: number,
             sort: "max-used-ingredients",

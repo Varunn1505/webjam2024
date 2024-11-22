@@ -22,17 +22,24 @@
     <br><br>
 
     <h2>Added Ingredients</h2>
-    <ul id="added-items">
-        <!-- Ingredients will be dynamically added here -->
-    </ul>
+    <ul id="added-items"></ul>
+    <br>
+
+    <h2>Allergies</h2>
+    <label for="intolerance-item">Add Intolerance:</label>
+    <input type="text" id="intolerance-item" placeholder="e.g., gluten">
+    <br><br>
+
+    <button onclick="addIntolerance()">Add Intolerance</button>
+    <br><br>
+
+    <ul id="intolerances-list"></ul>
     <br>
 
     <button onclick="apiCall()">Generate Recipes</button>
     <br><br>
 
     <h2>Recipe Results</h2>
-    <div id="recipe-results">
-        <!-- Recipes will be dynamically added here -->
-    </div>
+    <div id="recipe-results"></div>
 </body>
 </html>

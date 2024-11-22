@@ -212,7 +212,7 @@ function displayRecipes(list1Recipes, list2Recipes) {
 
     // Display recipes from narrow items
     const narrowHeading = document.createElement("h2");
-    narrowHeading.textContent = "Recipes from Narrow Items:";
+    narrowHeading.textContent = "Recipes from Ingredients expiring soon:";
     resultsContainer.appendChild(narrowHeading);
 
     list1Recipes.forEach(recipe => {

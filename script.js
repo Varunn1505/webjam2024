@@ -209,7 +209,9 @@ function displayRecipes(list1Recipes, list2Recipes) {
     // Track unique recipes for each section
     const seenNarrow = new Set();
     const seenAll = new Set();
-
+    const recipeHeading = document.createElement("h2")
+    recipeHeading.textContent = "Recipe Results"
+    resultsContainer.appendChild(recipeHeading)
     // Display recipes from narrow items
     const narrowHeading = document.createElement("h2");
     narrowHeading.textContent = "Recipes from Ingredients expiring soon:";

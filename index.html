@@ -14,31 +14,38 @@
 <div class="recipe-container">
     <h1 class="text" style="font-size: 70px;">ZeroWaste Recipe Finder</h1>
 
-    <label for="grocery-item" class="text">Grocery Item:</label>
-    <input type="text" id="grocery-item" placeholder="Enter grocery item">
-    <br><br>
+    <div class="box-wrapper">
+        <div class="box">
 
-    <label for="expiry-date" class="text">Expiry Date:</label>
-    <input type="date" id="expiry-date">
-    <br><br>
+            <h2 class="text">Ingredients</h2>
 
-    <button onclick="addItemToList()" class="button">Add</button>
-    <br><br>
+            <label for="grocery-item" class="text">Grocery Item:</label>
+            <input type="text" id="grocery-item" placeholder="Enter grocery item">
+            <br><br>
 
-    <h2 class="text">Added Ingredients</h2>
-    <ul id="added-items"></ul>
-    <br>
+            <label for="expiry-date" class="text">Expiry Date:</label>
+            <input type="date" id="expiry-date">
+            <br><br>
 
-    <h2 class="text">Allergies</h2>
-    <label for="intolerance-item" class="text">Add Allergy:</label>
-    <input type="text" id="intolerance-item" placeholder="e.g., gluten">
-    <br><br>
+            <button onclick="addItemToList()" class="button">Add</button>
+            <br><br>
 
-    <button onclick="addIntolerance()" class="button">Add Allergy</button>
-    <br><br>
+            <ul id="added-items"></ul>
+        </div>      
 
-    <ul id="intolerances-list"></ul>
-    <br>
+        <div class="box">
+            <h2 class="text">Allergies</h2>
+            <label for="intolerance-item" class="text">Add Allergy:</label>
+            <input type="text" id="intolerance-item" placeholder="e.g., gluten">
+            <br><br>
+
+            <button onclick="addIntolerance()" class="button">Add</button>
+            <br><br>
+
+            <ul id="intolerances-list"></ul>
+            <br>
+        </div>  
+    </div>
 
     <button onclick="apiCall()" class="button">Generate Recipes</button>
     <br><br>

@@ -14,7 +14,14 @@ body{
     font-family: "Nunito Sans", sans-serif;
     font-size: 20px;
     border-radius: 8px;
+    margin-right: 3px;
+    margin-left: 3px;
+    margin-bottom: 6px;
 
+}
+
+li {
+    list-style-type: none;
 }
 
 .button:hover{
@@ -30,4 +37,16 @@ body{
     margin-left: 300px;
     margin-top: 0px;
     margin-bottom: 0px;
+    justify-content: space-between;
+}
+
+.box-wrapper{
+    display: flex;
+    justify-content: space-between;
+}
+.box{
+    flex: 1;
+    padding: 20px;
+    margin: 10px;
+    box-sizing: border-box;
 }

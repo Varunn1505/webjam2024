@@ -6,11 +6,12 @@ function addIntolerance() {
     const list = document.getElementById("intolerances-list");
 
     if (intolerance === "") {
-        alert("Must enter an intolerance");
+        alert("Must enter an allergy");
     } else {
         intolerancesList.push(intolerance);
 
         const element = document.createElement("li");
+        element.classList.add("text");
         const node = document.createTextNode(intolerance);
         element.appendChild(node);
 
@@ -27,6 +28,7 @@ function addIntolerance() {
 function makeIntoleranceDeleteButton(listElement, list){
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "X";
+    deleteButton.classList.add("button");
 
     deleteButton.addEventListener("click", () => {
         const index = Array.from(list.children).indexOf(listElement);
@@ -56,14 +58,15 @@ function addItemToList(){
         itemsList.push(itemElement)
         
         const element = document.createElement("li");
-        const node = document.createTextNode(`${item}, ${date}`);
+        element.classList.add("text");
+        const node = document.createTextNode(`${item}  ${date}`);
         
         element.appendChild(node);
 
         const deleteButton = makedeleteButton(element, list)
         const editButton = makeEditButton(itemElement, element)
-        element.appendChild(deleteButton)
         element.appendChild(editButton)
+        element.appendChild(deleteButton)
 
         list.appendChild(element);
     }
@@ -72,6 +75,7 @@ function addItemToList(){
 function makedeleteButton(listElement, list){
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "X";
+    deleteButton.classList.add("button");
 
     deleteButton.addEventListener("click", () =>{
         list.removeChild(listElement)
@@ -83,6 +87,7 @@ function makedeleteButton(listElement, list){
 function makeEditButton(itemElement, listElement) {
     const editButton = document.createElement("button");
     editButton.textContent = "Edit";
+    editButton.classList.add("button");
 
     editButton.addEventListener("click", () => {
         // Create inputs for editing
@@ -97,6 +102,7 @@ function makeEditButton(itemElement, listElement) {
         // Create Save button
         const saveButton = document.createElement("button");
         saveButton.textContent = "Save";
+        saveButton.classList.add("button");
 
         saveButton.addEventListener("click", () => {
             // Update the item in itemsList
@@ -148,7 +154,7 @@ async function fetchRecipes(list1, list2) {
             apiKey: API_KEY,
             number: number,
             sort: "max-used-ingredients",
-            sortDirection: "desc",
+            sortDirection: "asc",
             addRecipeInformation: true,
             addRecipeInstructions: true,
             fillIngredients: true,
@@ -211,10 +217,12 @@ function displayRecipes(list1Recipes, list2Recipes) {
     const seenAll = new Set();
     const recipeHeading = document.createElement("h2")
     recipeHeading.textContent = "Recipe Results"
+    recipeHeading.classList.add("text");
     resultsContainer.appendChild(recipeHeading)
     // Display recipes from narrow items
     const narrowHeading = document.createElement("h2");
     narrowHeading.textContent = "Recipes from Ingredients expiring soon:";
+    narrowHeading.classList.add("text");
     resultsContainer.appendChild(narrowHeading);
 
     list1Recipes.forEach(recipe => {
@@ -228,6 +236,7 @@ function displayRecipes(list1Recipes, list2Recipes) {
     const allHeading = document.createElement("h2");
     allHeading.textContent = "Recipes from All Ingredients:";
     resultsContainer.appendChild(allHeading);
+    allHeading.classList.add("text");
 
     list2Recipes.forEach(recipe => {
         if (!seenNarrow.has(recipe.id) && !seenAll.has(recipe.id)) {

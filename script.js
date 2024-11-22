@@ -11,12 +11,13 @@ function addIntolerance() {
         intolerancesList.push(intolerance);
 
         const element = document.createElement("li");
-        element.classList.add("text");
+        element.classList.add("text-list");
         const node = document.createTextNode(intolerance);
         element.appendChild(node);
 
         const deleteButton = makeIntoleranceDeleteButton(element, list);
         element.appendChild(deleteButton);
+        
 
         list.appendChild(element);
 
@@ -28,7 +29,7 @@ function addIntolerance() {
 function makeIntoleranceDeleteButton(listElement, list){
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "X";
-    deleteButton.classList.add("button");
+    deleteButton.classList.add("button-delete");
 
     deleteButton.addEventListener("click", () => {
         const index = Array.from(list.children).indexOf(listElement);
@@ -58,7 +59,7 @@ function addItemToList(){
         itemsList.push(itemElement)
         
         const element = document.createElement("li");
-        element.classList.add("text");
+        element.classList.add("text-list");
         const node = document.createTextNode(`${item}  ${date}`);
         
         element.appendChild(node);
@@ -69,13 +70,14 @@ function addItemToList(){
         element.appendChild(deleteButton)
 
         list.appendChild(element);
+        list.classList.add("list-design")
     }
 }
 
 function makedeleteButton(listElement, list){
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "X";
-    deleteButton.classList.add("button");
+    deleteButton.classList.add("button-delete");
 
     deleteButton.addEventListener("click", () =>{
         list.removeChild(listElement)
@@ -192,21 +194,21 @@ function displayRecipes(list1Recipes, list2Recipes) {
     function createRecipeCard(recipe) {
         const card = document.createElement("div");
         card.className = "recipe-card";
-        card.style.border = "1px solid #ccc";
-        card.style.padding = "10px";
+        card.style.border = "3px solid #f7ebdb";
+        card.style.padding = "5px";
         card.style.margin = "10px 0";
         card.style.borderRadius = "5px";
-        card.style.backgroundColor = "#f9f9f9";
+        card.style.backgroundColor = "#acbd98";
     
         // Extract instructions if available
         const instructionsUrl = recipe.sourceUrl || `https://spoonacular.com/recipes/${recipe.id}`;
     
         card.innerHTML = `
             <img src="${recipe.image}" alt="${recipe.title}" style="width:50%; margin-bottom:10px;" />
-            <h3>${recipe.title}</h3>
-            <p><strong>Cooking Time:</strong> ${recipe.readyInMinutes} mins</p>
-            <p><strong>Calories:</strong> ${Math.round(recipe.nutrition.nutrients.find(n => n.name === "Calories").amount)} kcal</p>
-            <a href="${instructionsUrl}" target="_blank" style="color: blue; text-decoration: underline;">Full Instructions</a>
+            <h3 class="text" style="color: #f7ebdb">${recipe.title}</h3>
+            <p class="text"  style="color: rgb(6, 60, 15);"><strong>Cooking Time:</strong> ${recipe.readyInMinutes} mins</p>
+            <p class="text"  style="color: rgb(6, 60, 15);"><strong>Calories:</strong> ${Math.round(recipe.nutrition.nutrients.find(n => n.name === "Calories").amount)} kcal</p>
+            <a href="${instructionsUrl}" target="_blank" style="color: #f7ebdb; text-decoration: underline; font-family: "Nunito Sans", sans-serif;">Full Instructions</a>
         `;
         return card;
     }
@@ -215,36 +217,54 @@ function displayRecipes(list1Recipes, list2Recipes) {
     // Track unique recipes for each section
     const seenNarrow = new Set();
     const seenAll = new Set();
+
     const recipeHeading = document.createElement("h2")
     recipeHeading.textContent = "Recipe Results"
-    recipeHeading.classList.add("text");
+    recipeHeading.classList.add("text-results");
     resultsContainer.appendChild(recipeHeading)
+
+    //Create box wrapper
+    const boxWrapper = document.createElement("div");
+    boxWrapper.classList.add("box-wrapper");
+
+    //Box for narrowed reciped
+    const narrowBox = document.createElement("div");
+    narrowBox.classList.add("box-recipe");
+
     // Display recipes from narrow items
     const narrowHeading = document.createElement("h2");
-    narrowHeading.textContent = "Recipes from Ingredients expiring soon:";
+    narrowHeading.textContent = "Recipes from Ingredients Expiring Soon:";
     narrowHeading.classList.add("text");
-    resultsContainer.appendChild(narrowHeading);
+    narrowBox.appendChild(narrowHeading);
 
     list1Recipes.forEach(recipe => {
         if (!seenNarrow.has(recipe.id)) {
             seenNarrow.add(recipe.id);
-            resultsContainer.appendChild(createRecipeCard(recipe));
+            narrowBox.appendChild(createRecipeCard(recipe));
         }
     });
+    boxWrapper.appendChild(narrowBox);
+
+    //Box for all reciped
+    const allBox = document.createElement("div");
+    allBox.classList.add("box-recipe");
 
     // Display recipes from all ingredients, avoiding duplicates from narrow items
     const allHeading = document.createElement("h2");
     allHeading.textContent = "Recipes from All Ingredients:";
-    resultsContainer.appendChild(allHeading);
+    allBox.appendChild(allHeading);
     allHeading.classList.add("text");
 
     list2Recipes.forEach(recipe => {
         if (!seenNarrow.has(recipe.id) && !seenAll.has(recipe.id)) {
             seenAll.add(recipe.id);
-            resultsContainer.appendChild(createRecipeCard(recipe));
+            allBox.appendChild(createRecipeCard(recipe));
         }
     });
+    boxWrapper.appendChild(allBox);
+    resultsContainer.appendChild(boxWrapper);
 }
+
 
 
 // Generate recipes based on the narrowItems() and allIngredients() functions

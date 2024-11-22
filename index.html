@@ -12,18 +12,18 @@
 </head>
 <body>
 <div class="recipe-container">
-    <h1 class="text" style="font-size: 70px;">ZeroWaste Recipe Finder</h1>
-
+    <h3 class="text title-box" style="font-size: 80px; margin-bottom: 0">SAVR</h3>
+    <h3 class="text" style="color: rgb(6, 60, 15); font-size: 20px;">smart recipes, no waste.</h3>
     <div class="box-wrapper">
         <div class="box">
 
-            <h2 class="text">Ingredients</h2>
+            <h2 class="text" style="color: rgb(6, 60, 15); font-size: 28px;">Ingredients</h2>
 
-            <label for="grocery-item" class="text">Grocery Item:</label>
-            <input type="text" id="grocery-item" placeholder="Enter grocery item">
+            <label class="text" style="font-size: 20px;">Grocery Item:</label>
+            <input type="text" id="grocery-item" placeholder="e.g. bananas">
             <br><br>
 
-            <label for="expiry-date" class="text">Expiry Date:</label>
+            <label for="expiry-date" class="text" style="font-size: 20px; padding-bottom: 5px">Expiry Date:</label>
             <input type="date" id="expiry-date">
             <br><br>
 
@@ -34,9 +34,9 @@
         </div>      
 
         <div class="box">
-            <h2 class="text">Allergies</h2>
-            <label for="intolerance-item" class="text">Add Allergy:</label>
-            <input type="text" id="intolerance-item" placeholder="e.g., gluten">
+            <h2 class="text" style="color: rgb(6, 60, 15); font-size: 28px;">Allergies</h2>
+            <label for="intolerance-item" class="text" style="font-size: 20px; padding-bottom: 5px">Add Allergy:</label>
+            <input type="text" id="intolerance-item" placeholder="e.g. gluten">
             <br><br>
 
             <button onclick="addIntolerance()" class="button">Add</button>
@@ -47,11 +47,11 @@
         </div>  
     </div>
 
-    <button onclick="apiCall()" class="button">Generate Recipes</button>
+    <button onclick="apiCall()" class="button-generate">generate recipes</button>
     <br><br>
 
     <div id="recipe-results">
-        <!-- Recipes will be dynamically added here -->
+        <!-- Recipes will be added here -->
     </div>
 </div>
 </body>

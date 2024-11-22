@@ -5,41 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="script.js" defer></script> 
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
     <title>ZeroWaste</title>
 </head>
 <body>
-    <h1>ZeroWaste Recipe Finder</h1>
+<div class="recipe-container">
+    <h1 class="text" style="font-size: 70px;">ZeroWaste Recipe Finder</h1>
 
-    <label for="grocery-item">Grocery Item:</label>
+    <label for="grocery-item" class="text">Grocery Item:</label>
     <input type="text" id="grocery-item" placeholder="Enter grocery item">
     <br><br>
 
-    <label for="expiry-date">Expiry Date:</label>
+    <label for="expiry-date" class="text">Expiry Date:</label>
     <input type="date" id="expiry-date">
     <br><br>
 
-    <button onclick="addItemToList()">Add</button>
+    <button onclick="addItemToList()" class="button">Add</button>
     <br><br>
 
-    <h2>Added Ingredients</h2>
+    <h2 class="text">Added Ingredients</h2>
     <ul id="added-items"></ul>
     <br>
 
-    <h2>Allergies</h2>
-    <label for="intolerance-item">Add Intolerance:</label>
+    <h2 class="text">Allergies</h2>
+    <label for="intolerance-item" class="text">Add Intolerance:</label>
     <input type="text" id="intolerance-item" placeholder="e.g., gluten">
     <br><br>
 
-    <button onclick="addIntolerance()">Add Intolerance</button>
+    <button onclick="addIntolerance()" class="button">Add Intolerance</button>
     <br><br>
 
     <ul id="intolerances-list"></ul>
     <br>
 
-    <button onclick="apiCall()">Generate Recipes</button>
+    <button onclick="apiCall()" class="button">Generate Recipes</button>
     <br><br>
 
-    <h2>Recipe Results</h2>
-    <div id="recipe-results"></div>
+    <h2 class="text">Recipe Results</h2>
+    <div id="recipe-results">
+        <!-- Recipes will be dynamically added here -->
+    </div>
+</div>
 </body>
 </html>

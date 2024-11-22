@@ -187,7 +187,7 @@ function displayRecipes(list1Recipes, list2Recipes) {
         const card = document.createElement("div");
         card.className = "recipe-card";
         card.style.border = "1px solid #ccc";
-        card.style.padding = "30px";
+        card.style.padding = "10px";
         card.style.margin = "10px 0";
         card.style.borderRadius = "5px";
         card.style.backgroundColor = "#f9f9f9";

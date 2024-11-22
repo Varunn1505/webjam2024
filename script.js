@@ -68,8 +68,10 @@ function makeEditButton(itemElement, listElement) {
             listElement.textContent = `${itemElement.itemName}, ${itemElement.expiryDate}`;
 
             // Re-add the Edit and Delete buttons
-            listElement.appendChild(makeEditButton(itemElement, listElement));
-            listElement.appendChild(makeDeleteButton(listElement, listElement.parentNode));
+            const deleteButton = makedeleteButton(listElement, listElement.parentNode);
+            const editButton = makeEditButton(itemElement, listElement);
+            listElement.appendChild(deleteButton);
+            listElement.appendChild(editButton);
         });
 
         // Clear current list element and add inputs and Save button
@@ -81,6 +83,7 @@ function makeEditButton(itemElement, listElement) {
 
     return editButton;
 }
+
 
 function apiCall(){
     // api call with narrowItems() expiring ingredients, to print recipes primarily with expiring ingredients
@@ -95,7 +98,7 @@ function delay(ms) {
 
 // Fetch recipes using the Spoonacular API
 async function fetchRecipes(list1, list2) {
-    const API_KEY = "1999ba0f7a644ac4afb4dc0ac20d224c"; // Replace with your API key
+    const API_KEY = "1999ba0f7a644ac4afb4dc0ac20d224c";
     const BASE_URL = "https://api.spoonacular.com/recipes/complexSearch";
 
     // Helper function to fetch recipes for a given list
@@ -107,6 +110,7 @@ async function fetchRecipes(list1, list2) {
             sort: "max-used-ingredients",
             sortDirection: "desc",
             addRecipeInformation: true,
+            addRecipeInstructions: true,
             fillIngredients: true,
             addRecipeNutrition: true
         });
@@ -127,7 +131,7 @@ async function fetchRecipes(list1, list2) {
     await delay(1000); // Wait 1 second to respect the API rate limit
 
     // Fetch recipes from the second list
-    const recipesList2 = await getRecipes(list2, 10);
+    const recipesList2 = await getRecipes(list2, 20);
 
     // Combine and display results
     displayRecipes(recipesList1, recipesList2);
@@ -135,16 +139,10 @@ async function fetchRecipes(list1, list2) {
 
 // Display recipes dynamically, including images
 function displayRecipes(list1Recipes, list2Recipes) {
-    let resultsContainer = document.getElementById("recipe-results");
-    if (!resultsContainer) {
-        resultsContainer = document.createElement("div");
-        resultsContainer.id = "recipe-results";
-        document.body.appendChild(resultsContainer);
-    }
-
+    const resultsContainer = document.getElementById("recipe-results");
     resultsContainer.innerHTML = ""; // Clear previous results
 
-    // Helper function to create a recipe card with image
+    // Helper function to create a recipe card
     function createRecipeCard(recipe) {
         const card = document.createElement("div");
         card.className = "recipe-card";
@@ -153,33 +151,52 @@ function displayRecipes(list1Recipes, list2Recipes) {
         card.style.margin = "10px 0";
         card.style.borderRadius = "5px";
         card.style.backgroundColor = "#f9f9f9";
-
+    
+        // Extract instructions if available
+        const instructions = recipe.analyzedInstructions?.[0]?.steps.map(step => step.step).join(" ") || "No instructions available.";
+        const instructionsUrl = recipe.sourceUrl || `https://spoonacular.com/recipes/${recipe.id}`;
+    
         card.innerHTML = `
-            <img src="${recipe.image}" alt="${recipe.title}" style="width:100%; border-radius:5px; margin-bottom:10px;" />
+            <img src="${recipe.image}" alt="${recipe.title}" style="width:100%; margin-bottom:10px;" />
             <h3>${recipe.title}</h3>
             <p><strong>Cooking Time:</strong> ${recipe.readyInMinutes} mins</p>
             <p><strong>Calories:</strong> ${Math.round(recipe.nutrition.nutrients.find(n => n.name === "Calories").amount)} kcal</p>
-            <a href="${recipe.sourceUrl}" target="_blank" style="color: blue; text-decoration: underline;">View Recipe</a>
+            <p><strong>Instructions:</strong> ${instructions}</p>
+            <a href="${instructionsUrl}" target="_blank" style="color: blue; text-decoration: underline;">Full Instructions</a>
         `;
         return card;
     }
+    
 
-    // Add recipes from the first list
-    const list1Heading = document.createElement("h2");
-    list1Heading.textContent = "Recipes from Narrow Items:";
-    resultsContainer.appendChild(list1Heading);
+    // Track unique recipes for each section
+    const seenNarrow = new Set();
+    const seenAll = new Set();
+
+    // Display recipes from narrow items
+    const narrowHeading = document.createElement("h2");
+    narrowHeading.textContent = "Recipes from Narrow Items:";
+    resultsContainer.appendChild(narrowHeading);
+
     list1Recipes.forEach(recipe => {
-        resultsContainer.appendChild(createRecipeCard(recipe));
+        if (!seenNarrow.has(recipe.id)) {
+            seenNarrow.add(recipe.id);
+            resultsContainer.appendChild(createRecipeCard(recipe));
+        }
     });
 
-    // Add recipes from the second list
-    const list2Heading = document.createElement("h2");
-    list2Heading.textContent = "Recipes from All Ingredients:";
-    resultsContainer.appendChild(list2Heading);
+    // Display recipes from all ingredients, avoiding duplicates from narrow items
+    const allHeading = document.createElement("h2");
+    allHeading.textContent = "Recipes from All Ingredients:";
+    resultsContainer.appendChild(allHeading);
+
     list2Recipes.forEach(recipe => {
-        resultsContainer.appendChild(createRecipeCard(recipe));
+        if (!seenNarrow.has(recipe.id) && !seenAll.has(recipe.id)) {
+            seenAll.add(recipe.id);
+            resultsContainer.appendChild(createRecipeCard(recipe));
+        }
     });
 }
+
 
 // Generate recipes based on the narrowItems() and allIngredients() functions
 function generateRecipes() {

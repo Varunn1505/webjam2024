@@ -250,7 +250,7 @@ function displayRecipes(list1Recipes, list2Recipes) {
 // Generate recipes based on the narrowItems() and allIngredients() functions
 function generateRecipes() {
     // Get ingredients from narrowItems() and allIngredients()
-    const list1 = narrowItems();
+    const list1 = allIngredients();
     const list2 = allIngredients();
 
     if (list1.length === 0 && list2.length === 0) {
